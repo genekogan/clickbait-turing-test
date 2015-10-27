@@ -1,0 +1,8 @@
+{
+  "name": "Clickbait Turing Test",
+  "description": "A simple test to determine whether you can tell apart human vs. RNN-generated clickbait",
+  "repository": "https://github.com/genekogan/clickbait-turing-test",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"],
+  "image": "heroku/nodejs"
+}
