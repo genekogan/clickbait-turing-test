@@ -17,20 +17,19 @@
   <p/>
   
   <div id="result">
-      <a href="javascript:getNewPair()"><h3>Next</h3></a>
+      <a href="javascript:requestNewPair()"><h3>Next</h3></a>
   </div>
   
   <p/>
   <div id="main">
-  		<div id="main_left" class="entry"></div>
-      <div id="main_right" class="entry"></div>
+  		<div id="main_left" class="entry" onclick="checkAnswer(true)" ></div>
+      <div id="main_right" class="entry" onclick="checkAnswer(false)" ></div>
   </div>
   <div id="footer">
     <center>
       <h3>
         <a href="https://github.com/genekogan/clickbait-turing-test">Source</a> || 
-        <a href="about.html">About</a> || 
-        <a href="https://www.twitter.com/genekogan">by @genekogan</a>
+        <a href="about.html">About</a>
       </h3>
     </center>
   </div>
@@ -39,8 +38,7 @@
   	<script src="js/client.js" type="text/javascript" charset="utf-8"></script>
   	<script>
     	start();
-
-      doThis();
+      requestNewPair();
   	</script>
 
 </body>

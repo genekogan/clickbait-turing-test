@@ -10,39 +10,30 @@ function start() {
 
 	// did we receive a sketch?
 	socket.on('newPair', function (data) {
-		console.log(data);
 		var chtext = '<img src="'+data.clickhole.image+'" width="480px" /><br/><h2>'+data.clickhole.text+'</h2>';
 		var cttext = '<img src="'+data.clickotron.image+'" width="480px" /><br/><h2>'+data.clickotron.text+'</h2>';
-		if (Math.random() < 0.5) {
-			$("#main_left").html(chtext);
-			$("#main_right").html(cttext);
-		}
-		else {
-			$("#main_left").html(chtext);
-			$("#main_right").html(cttext);
-		}
+		$("#main_left").html(data.ctLeft ? cttext : chtext);
+		$("#main_right").html(data.ctLeft ? chtext : cttext);
+		$("#main_left").css('background-color', "");
+		$("#main_right").css('background-color', "");
+		$("#result").html("<h3>"+(data.result ? "Correct!" : "Wrong!")+' <a href="javascript:requestNewPair()">Next</a></h3>');
 	});
+
+	socket.on('answerResult', function(data) {
+		$(data.side?"#main_left":"#main_right").css('background-color', data.result ? "green" : "red");
+		$("#result").html("<h3>"+(data.result ? "Correct!" : "Wrong!")+' <a href="javascript:requestNewPair()">Next</a></h3>');
+	});
+
 };
 
-function doThis() {
-	//$("#main_left").html('<img src="http://www.clickotron.com/images/1078835main.jpg"/><br/><h2>Fox News Host James King To Host Debate</h2>');
-	//$("#main_right").html('<img src="http://i.onionstatic.com/clickhole/2138/7/16x9/600.jpg"/><br/><h2>Jonah Hill and Channing Tatum Have The Best Bromance Ever</h2>');
-
-	$("#main_left").html('<img src="http://www.clickotron.com/images/1078835main.jpg"/><br/><h2>Fox News Host James King To Host Debate</h2>');
-	$("#main_right").html('<img src="http://i.onionstatic.com/clickhole/2138/7/16x9/600.jpg"/><br/><h2>Jonah Hill and Channing Tatum Have The Best Bromance Ever</h2>');
-
-
-	
+function requestNewPair() {
+	var socket = io.connect(host);
+	socket.emit('requestNewPair');
 }
 
-function getNewPair() {
+function checkAnswer(isLeft) {
 	var socket = io.connect(host);
-	socket.emit('getNewPair');
-}
-
-function testFunc2() {
-	var socket = io.connect(host);
-	var data = {answer1:"my ans1", answer2:"my ans2"};
+	var data = {answer:isLeft};
 	socket.emit('checkAnswer', data);
 }
 
