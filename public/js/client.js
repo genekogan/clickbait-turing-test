@@ -18,7 +18,7 @@ function start() {
 		$("#main_right_details").html('');
 		$("#main_left").css('background-color', "");
 		$("#main_right").css('background-color', "");
-		$("#result").html('<h3><a href="javascript:requestNewPair()">Next</a></h3>');
+		$("#result").html('');
 	});
 
 	socket.on('answerResult', function(data) {
