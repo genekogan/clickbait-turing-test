@@ -10,16 +10,18 @@ function start() {
 
 	// did we receive a sketch?
 	socket.on('newPair', function (data) {
-		var chtext = '<img src="'+data.clickhole.image+'" width="480px" /><br/><h2>'+data.clickhole.text+'</h2>';
-		var cttext = '<img src="'+data.clickotron.image+'" width="480px" /><br/><h2>'+data.clickotron.text+'</h2>';
-		$("#main_left").html(data.ctLeft ? cttext : chtext);
-		$("#main_right").html(data.ctLeft ? chtext : cttext);
+		var chtext = '<img src="'+data.clickhole.image+'" width="480px" /><br/><h3>'+data.clickhole.text+'</h3>';
+		var cttext = '<img src="'+data.clickotron.image+'" width="480px" /><br/><h3>'+data.clickotron.text+'</h3>';
+		$("#main_left_image").html(data.ctLeft ? cttext : chtext);
+		$("#main_right_image").html(data.ctLeft ? chtext : cttext);
 		$("#main_left").css('background-color', "");
 		$("#main_right").css('background-color', "");
 		$("#result").html('<h3><a href="javascript:requestNewPair()">Next</a></h3>');
 	});
 
 	socket.on('answerResult', function(data) {
+		$("#main_left_details").html('Go to <a href="'+data.leftLink+'">'+(data.ctLeft ? "Clickotron" : "Clickhole")+'</a>');
+		$("#main_right_details").html('Go to <a href="'+data.rightLink+'">'+(data.ctLeft ? "Clickhole" : "Clickotron")+'</a>');
 		$(data.side?"#main_left":"#main_right").css('background-color', data.result ? "green" : "red");
 		$("#result").html("<h3>"+(data.result ? "Correct!" : "Wrong!")+' <a href="javascript:requestNewPair()">Next</a></h3>');
 	});

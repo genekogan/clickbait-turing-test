@@ -121,11 +121,13 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+var idxClickhole;
+var idxClickotron;
 var ctLeft;
 
 function getData() {
-  var idxClickhole = Math.floor(clickhole.length * Math.random());
-  var idxClickotron = Math.floor(clickotron.length * Math.random());
+  idxClickhole = Math.floor(clickhole.length * Math.random());
+  idxClickotron = Math.floor(clickotron.length * Math.random());
   ctLeft = Math.random() < 0.5;
 	var data = {clickhole:clickhole[idxClickhole], clickotron:clickotron[idxClickotron], ctLeft:ctLeft};
 	return data;
@@ -140,7 +142,9 @@ io.on('connection', function (socket) {
   	});    
  
  	  socket.on('checkAnswer', function (data) {
-      socket.emit("answerResult", {result:data.answer==ctLeft, side:data.answer});
+      var leftLink = ctLeft ? clickotron[idxClickotron].url : clickhole[idxClickhole].url;
+      var rightLink = ctLeft ? clickhole[idxClickhole].url : clickotron[idxClickotron].url;
+      socket.emit("answerResult", {result:data.answer==ctLeft, side:data.answer, ctLeft:ctLeft, leftLink:leftLink, rightLink:rightLink});
   	});    
  
     // error handling
