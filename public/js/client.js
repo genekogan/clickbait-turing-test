@@ -14,6 +14,8 @@ function start() {
 		var cttext = '<img src="'+data.clickotron.image+'" width="480px" /><br/><h3>'+data.clickotron.text+'</h3>';
 		$("#main_left_image").html(data.ctLeft ? cttext : chtext);
 		$("#main_right_image").html(data.ctLeft ? chtext : cttext);
+		$("#main_left_details").html('');
+		$("#main_right_details").html('');
 		$("#main_left").css('background-color', "");
 		$("#main_right").css('background-color', "");
 		$("#result").html('<h3><a href="javascript:requestNewPair()">Next</a></h3>');
