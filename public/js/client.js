@@ -16,7 +16,7 @@ function start() {
 		$("#main_right").html(data.ctLeft ? chtext : cttext);
 		$("#main_left").css('background-color', "");
 		$("#main_right").css('background-color', "");
-		$("#result").html("<h3>"+(data.result ? "Correct!" : "Wrong!")+' <a href="javascript:requestNewPair()">Next</a></h3>');
+		$("#result").html('<h3><a href="javascript:requestNewPair()">Next</a></h3>');
 	});
 
 	socket.on('answerResult', function(data) {
